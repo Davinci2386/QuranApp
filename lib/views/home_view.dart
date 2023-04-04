@@ -1,52 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:quran/services/get_ayat.dart';
+import 'package:quran/models/surah.dart';
+import 'package:quran/services/get_all_surahs.dart';
+
+import '../widgets/ayah_navigator.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future<Map<String, dynamic>> data = GetAyat().getAyatF();
     return FutureBuilder(
-        future: data,
+        future: GetAyat().getAllSurahs(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<String> ayat = [];
-            for (var i = 0; i < 114; i++) {
-              ayat.add('Test');
-            }
-
+            List<Surah>? surah = snapshot.data;
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(
+                title: const Text(
                   'القرآن الكريم',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
                 ),
               ),
               body: ListView.builder(
-                itemCount: ayat.length,
+                itemCount: surah!.length,
                 itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Container(
-                        color: Colors.amber,
-                        height: 100,
-                        width: MediaQuery.of(context).size.width,
-                        child: Center(
-                            child: Text(
-                          ayat[index],
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        )),
-                      ),
-                      Divider(
-                        color: Colors.brown,
-                        thickness: 17,
-                      )
-                    ],
+                  return Surah_Navigator(
+                    surah: surah,
+                    index: index,
+                    navigator: () {},
                   );
                 },
               ),
