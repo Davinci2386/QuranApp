@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../models/surah.dart';
+import '../models/surahs.dart';
 
 class Surah_Navigator extends StatelessWidget {
   Surah_Navigator(
@@ -10,7 +9,7 @@ class Surah_Navigator extends StatelessWidget {
       required this.index,
       required this.navigator});
   VoidCallback navigator;
-  final List<Surah>? surah;
+  final List<Surahs>? surah;
   int index;
   @override
   Widget build(BuildContext context) {
